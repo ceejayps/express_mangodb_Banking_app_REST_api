@@ -9,6 +9,7 @@ const indexRouter = require('./routes/index')
 server.set('view engine', 'ejs')
 server.set('views', __dirname+'/views')
 server.set('layout', 'layouts/layout')
+server.use(expressLayouts)
 server.use(express.static('public'))
 server.use('/',indexRouter)
 
