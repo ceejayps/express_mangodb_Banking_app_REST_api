@@ -24,7 +24,7 @@ router.get('/',Autherize, async (req,res)=>{
 })
 
 
-router.get('/login', async (req,res)=>{
+router.post('/login', async (req,res)=>{
     const isemail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(res.identifier);
  
      try {
