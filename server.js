@@ -29,4 +29,4 @@ server.use('/users',userRoute)
 
 
 
-server.listen(process.env.Port || 1876)
+server.listen(process.env.PORT || 1876)
