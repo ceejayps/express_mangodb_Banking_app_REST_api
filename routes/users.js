@@ -8,11 +8,11 @@ router.get('/', async (req,res)=>{
 
     try {
         const users = await User.find()
-        res.json(users);
+        return res.json(users);
     } catch (e) {
         return res.status(500).json({message:e})
     }
-res.send("ok")
+
 })
 
 //get one users
@@ -56,7 +56,7 @@ router.delete('/:id',getUser, async (req,res)=>{
     }
     })
 
-/*----------------- moddleware get user by id ----------------*/
+/*----------------- middleware get user by id ----------------*/
   async  function getUser(req, res, next){
       let user;
 try {
@@ -70,6 +70,6 @@ try {
 res.user = user;
 next();
     }
-/*----------------- end of moddleware get user by id ----------------*/
+/*----------------- end of middleware get user by id ----------------*/
 
  module.exports = router;
