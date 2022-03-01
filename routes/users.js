@@ -1,13 +1,27 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
-const User = require("../models/user")
+const User = require("../models/user");
+const jwt= require("jsonwebtoken");
+const user = require("../models/user");
 const router = express.Router(); 
+const baseAccountNumber = 187600000000;
+///require("dotenv").config();
 
 //get all users
-router.get('/', async (req,res)=>{
+router.get('/',Autherize, async (req,res)=>{
+    let largest = 0;
+    let AccList =[1,2,3,4,5,6,7,8,9,10];
 
     try {
         const users = await User.find()
+        
+    AccList.forEach(i => {
+            if(i > largest){
+                largest = i
+                console.log( "changed")
+            }
+            console.log( largest)
+        });
         return res.json(users);
     } catch (e) {
         return res.status(500).json({message:e})
@@ -16,18 +30,25 @@ router.get('/', async (req,res)=>{
 })
 
 //get one users
-router.get('/:id', getUser, (req,res)=>{
+router.get('/:id', Autherize, getUser, (req,res)=>{
     res.send(res.user)
     })
 
 //create one users
 router.post('/', async(req,res)=>{
-    
+    const add = await (await User.find()).length;
+    //let add = user.length;console.log(add)
+
+    let accountNumber = baseAccountNumber + add
+    console.log(accountNumber)
     const newYouser =  await new User({
         
     fullname: req.body.fullname,
-    email: req.body.email,
-    password: await bcrypt.hash(req.body.password,11)
+    email: require('crypto').randomBytes(10).toString('hex')+"@mail.com",
+    password: await bcrypt.hash(req.body.password,11),
+    Balance:1.5,
+    confirmationToken:"hhhhhhhn",
+    "account number":accountNumber
 
     })
     try {
@@ -71,5 +92,18 @@ res.user = user;
 next();
     }
 /*----------------- end of middleware get user by id ----------------*/
+
+/*----------------- middleware get user by id ----------------*/
+function Autherize(req,res, next){
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(" ")[1];
+    if(token == null){  console.log('stuch step 3'); return res.sendStatus(401)}
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user)=>{
+        if(err){return res.sendStatus(403)}
+        req.user = user;
+        req.params.id = req.params.id;
+        next();
+    })
+}
 
  module.exports = router;
