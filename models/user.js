@@ -36,6 +36,16 @@ const userSchema = mongoose.Schema({
         type: String,
         required: [true, 'smartAss we need a password to protect your data'],
       },
+      confirmed: {
+        type: Boolean,
+        required: true, 
+        default: false,
+      },
+      blocked: {
+        type: Boolean,
+        required: true, 
+        default: false,
+      },
       confirmationToken: {
         type: String,
         required: true, 
