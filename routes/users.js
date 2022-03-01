@@ -47,8 +47,13 @@ router.post('/:id',getUser,async (req,res)=>{
     })
 
 //delete one users
-router.delete('/:id', (req,res)=>{
-    res.send("ok")
+router.delete('/:id',getUser, async (req,res)=>{
+    try {
+        await res.user.remove();
+        return res.status(200).json("user deleted")
+    } catch (error) {
+        return res.status(500).json({message:e.message})
+    }
     })
 
 /*----------------- moddleware get user by id ----------------*/
