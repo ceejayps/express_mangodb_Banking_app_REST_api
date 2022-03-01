@@ -7,6 +7,7 @@ const server = express();
 const bcrypt = require("bcrypt");
 const expressLayouts = require("express-ejs-layouts");
 const indexRouter = require('./routes/index');
+const userRoute = require('./routes/users')
 const mongoose  = require("mongoose");
 mongoose.connect(process.env.DATABASE_URL,{useNewUrlParser:true})
 const db = mongoose.connection;
@@ -20,6 +21,7 @@ server.set('layout', 'layouts/layout')
 server.use(expressLayouts)
 server.use(express.static('public'))
 server.use('/',indexRouter)
+server.use('/users',userRoute)
 
 
 
