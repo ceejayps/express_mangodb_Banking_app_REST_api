@@ -1,12 +1,13 @@
 const express = require("express");
-const user = require("../models/user")
+const bcrypt = require("bcrypt");
+const User = require("../models/user")
 const router = express.Router(); 
 
 //get all users
 router.get('/', async (req,res)=>{
 
     try {
-        const users = await user.find()
+        const users = await User.find()
         res.json(users);
     } catch (e) {
         return res.status(500).json({message:e})
@@ -20,7 +21,23 @@ router.get('/:id', (req,res)=>{
     })
 
 //create one users
-router.post('/', (req,res)=>{
+router.post('/', async(req,res)=>{
+    
+    const newYouser =  await new User({
+        
+    fullname: req.body.fullname,
+    email: req.body.email,
+    password: await bcrypt.hash(req.body.password,11)
+
+    })
+    try {
+        const createduser = await newYouser.save()
+        return res.status(201).json("success")
+    } catch (e) {
+        return res.status(400).json({message:e.message})   
+    }
+
+
     res.send("ok")
     })
 
