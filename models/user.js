@@ -21,7 +21,7 @@ const userSchema = mongoose.Schema({
       Balance: {
         type: Number, 
       },
-      "account number": {
+      accountNumber: {
         type: Number, 
         unique: [true, ""],
         required: [true, ""],
