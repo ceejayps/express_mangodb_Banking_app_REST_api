@@ -25,7 +25,7 @@ router.get('/',Autherize, async (req,res)=>{
 
 
 router.get('/login', async (req,res)=>{
-    const isemail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test("187600000000");
+    const isemail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(res.identifier);
  
      try {
          // let users = await User.find({ accountNumber:18760000000})
