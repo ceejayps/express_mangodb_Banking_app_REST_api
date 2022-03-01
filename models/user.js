@@ -52,6 +52,7 @@ const userSchema = mongoose.Schema({
       },
       resetPasswordToken: {
         type: String, 
+        default:"nan"
       },
       createdAt: {
         type: Date,
