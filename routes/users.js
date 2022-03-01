@@ -9,7 +9,7 @@ const baseAccountNumber = 187600000000;
 
 //get all users
 router.get('/',Autherize, async (req,res)=>{
-
+   const isemail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test("ceejayps1308@gmail.com");
 
     try {
         let users = await User.find({ accountNumber:18760000000})
@@ -18,6 +18,9 @@ router.get('/',Autherize, async (req,res)=>{
             return res.json(users);
         }
 
+       while (isemail) {
+           
+       }
         
         return res.json(users);
     } catch (e) {
