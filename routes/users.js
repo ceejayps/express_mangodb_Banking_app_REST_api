@@ -52,4 +52,11 @@ router.delete('/:id', (req,res)=>{
     })
 
 
+  async  function getUser(req, res, next){
+try {
+    let user = await User.findById(req.parms.id)
+} catch (e) {
+    
+}
+    }
  module.exports = router;
