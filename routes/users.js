@@ -9,19 +9,11 @@ const baseAccountNumber = 187600000000;
 
 //get all users
 router.get('/',Autherize, async (req,res)=>{
-    let largest = 0;
-    let AccList =[1,2,3,4,5,6,7,8,9,10];
+
 
     try {
         const users = await User.find()
         
-    AccList.forEach(i => {
-            if(i > largest){
-                largest = i
-                console.log( "changed")
-            }
-            console.log( largest)
-        });
         return res.json(users);
     } catch (e) {
         return res.status(500).json({message:e})
