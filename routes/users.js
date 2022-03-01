@@ -31,19 +31,21 @@ router.post('/', async(req,res)=>{
      // const deleteAll = await user.deleteMany()
    //return res.send("deleted")
 
-    const add = await (await User.find()).length;
+    let add = await (await User.find()).length;
     console.log({add})
-    let confirmationToken =require('crypto').randomBytes(86).toString('hex');
+    email = req.body.email;
+    fullname = req.body.fullname;
+    let confirmationToken =require('crypto').randomBytes(24).toString('hex');
     let accountNumber = baseAccountNumber + add
-    console.log(accountNumber)
+    console.log({accountNumber})
 
     const newYouser =  await new User({
-    fullname: req.body.fullname,
-    email: require('crypto').randomBytes(10).toString('hex')+"@mail.test",
+    fullname,
+    email, //require('crypto').randomBytes(10).toString('hex')+"@mail.test",
     password: await bcrypt.hash(req.body.password,11),
     Balance:1.5,
     confirmationToken,
-    "account number":accountNumber
+    accountNumber,
 
     })
     try {
@@ -62,11 +64,24 @@ router.post('/:id',getUser,async (req,res)=>{
     res.send(res.user.name)
     })
 
+
+//delete all
+router.delete('/', async (req,res)=>{
+    try {
+        // await res.user.remove();
+            await user.deleteMany()
+    //return res.send("deleted")
+        return res.status(204).json("user deleted")
+    } catch (error) {
+        return res.status(500).json({message:e.message})
+    }
+    })
+
 //delete one users
 router.delete('/:id',getUser, async (req,res)=>{
     try {
         await res.user.remove();
-        return res.status(200).json("user deleted")
+        return res.status(204).json("user deleted")
     } catch (error) {
         return res.status(500).json({message:e.message})
     }
