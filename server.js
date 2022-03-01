@@ -4,6 +4,7 @@ if(process.env.NODE_ENV !=="production"){
 
 const express = require("express");
 const server = express();
+const { json } = require("express/lib/response");
 const bcrypt = require("bcrypt");
 const expressLayouts = require("express-ejs-layouts");
 const indexRouter = require('./routes/index');
@@ -20,8 +21,11 @@ server.set('views', __dirname+'/views')
 server.set('layout', 'layouts/layout')
 server.use(expressLayouts)
 server.use(express.static('public'))
+server.use(express.json());
+server.use(express.urlencoded({extended: true}))
 server.use('/',indexRouter)
 server.use('/users',userRoute)
+
 
 
 
