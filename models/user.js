@@ -18,6 +18,14 @@ const userSchema = mongoose.Schema({
           message: 'does {VALUE} looks like an email to you?!'
         }
       },
+      Balance: {
+        type: Number, 
+      },
+      "account number": {
+        type: Number, 
+        unique: [true, ""],
+        required: [true, ""],
+      },
       role: {
         type: String,
         enum: ["authenticated", "admin", "public", "super admin"],
