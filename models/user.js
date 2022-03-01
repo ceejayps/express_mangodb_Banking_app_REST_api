@@ -1,7 +1,7 @@
 const mongoose  = require("mongoose");
 
 const userSchema = mongoose.Schema({
-    fullName: {
+    fullname: {
         type: String,
         required: [true, "smartAss we all know u have a name.. enter it"],
       },
@@ -20,18 +20,23 @@ const userSchema = mongoose.Schema({
       },
       role: {
         type: String,
-        enum: ["authUser", "admin"],
+        enum: ["authUser", "admin", "public"],
         required: [true, "Please specify user role"],
-        default: "authUser"
+        default: "public"
       },
       password: {
         type: String,
         required: [true, 'smartAss we need a password to protect your data']
       },
-      created: {
+      createdAt: {
         type: Date,
         default: Date.now()
-      }
+      ,
+      updatedAt: {
+        type: Date,
+        default: Date.now()
+      }}
+
 })
 
-module.exports = mongoose.model("user", userSchema)
+module.exports = mongoose.model("User", userSchema)
