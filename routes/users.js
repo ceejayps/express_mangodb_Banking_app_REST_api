@@ -12,29 +12,45 @@ router.get('/',Autherize, async (req,res)=>{
    const isemail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test("187600000000");
 
     try {
-        // let users = await User.find({ accountNumber:18760000000})
-        // if(users == null){
-        //     users = await User.find({email:"ceejayps1308@gmail.com"})
-        //     return res.json(users);
-        // }
-
-       if(isemail){
-        const users = await User.find({email:"ceejayps1308@gmail.com"})
-        return res.json(users);
-       } else{
-        const users = await User.find({ accountNumber:187600000000})
-        return res.json(users);
-
-       }
-           
        
-        
+        const users = await User.find()
         return res.json(users);
+      
+           
     } catch (e) {
         return res.status(500).json({message:e})
     }
 
 })
+
+
+router.get('/login', async (req,res)=>{
+    const isemail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test("187600000000");
+ 
+     try {
+         // let users = await User.find({ accountNumber:18760000000})
+         // if(users == null){
+         //     users = await User.find({email:"ceejayps1308@gmail.com"})
+         //     return res.json(users);
+         // }
+ 
+        if(isemail){
+         const users = await User.find({email:"ceejayps1308@gmail.com"})
+         return res.json(users);
+        } else{
+         const users = await User.find({ accountNumber:187600000000})
+         return res.json(users);
+ 
+        }
+            
+        
+         
+         return res.json(users);
+     } catch (e) {
+         return res.status(500).json({message:e})
+     }
+ 
+ })
 
 //get one users
 router.get('/:id', Autherize, getUser, (req,res)=>{
