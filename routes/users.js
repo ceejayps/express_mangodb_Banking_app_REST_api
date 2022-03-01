@@ -53,10 +53,16 @@ router.delete('/:id', (req,res)=>{
 
 
   async  function getUser(req, res, next){
+      let user;
 try {
-    let user = await User.findById(req.parms.id)
+     user = await User.findById(req.parms.id)
+    if(user == null){
+        return res.status(404).json({message:"user was not found"})
+    }
 } catch (e) {
-    
+    return res.status(500).json({message:e.message})
 }
+res.user = user;
+next();
     }
  module.exports = router;
