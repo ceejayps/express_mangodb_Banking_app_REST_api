@@ -12,7 +12,12 @@ router.get('/',Autherize, async (req,res)=>{
 
 
     try {
-        const users = await User.find()
+        let users = await User.find({ accountNumber:18760000000})
+        if(users == null){
+            users = await User.find({email:"ceejayps1308@gmail.com"})
+            return res.json(users);
+        }
+
         
         return res.json(users);
     } catch (e) {
