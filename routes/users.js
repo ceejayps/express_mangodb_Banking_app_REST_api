@@ -28,14 +28,18 @@ router.get('/:id', Autherize, getUser, (req,res)=>{
 
 //create one users
 router.post('/', async(req,res)=>{
+     // const deleteAll = await user.deleteMany()
+   //return res.send("deleted")
+
     const add = await (await User.find()).length;
+    console.log({add})
     let confirmationToken =require('crypto').randomBytes(86).toString('hex');
     let accountNumber = baseAccountNumber + add
     console.log(accountNumber)
 
     const newYouser =  await new User({
     fullname: req.body.fullname,
-    email: require('crypto').randomBytes(10).toString('hex')+"@mail.com",
+    email: require('crypto').randomBytes(10).toString('hex')+"@mail.test",
     password: await bcrypt.hash(req.body.password,11),
     Balance:1.5,
     confirmationToken,
