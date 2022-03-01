@@ -16,8 +16,8 @@ res.send("ok")
 })
 
 //get one users
-router.get('/:id', (req,res)=>{
-    res.send("ok")
+router.get('/:id', getUser, (req,res)=>{
+    res.send(res.user)
     })
 
 //create one users
@@ -42,8 +42,8 @@ router.post('/', async(req,res)=>{
     })
 
 //update one users
-router.post('/:id', (req,res)=>{
-    res.send("ok")
+router.post('/:id',getUser,async (req,res)=>{
+    res.send(res.user.name)
     })
 
 //delete one users
@@ -51,11 +51,11 @@ router.delete('/:id', (req,res)=>{
     res.send("ok")
     })
 
-
+/*----------------- moddleware get user by id ----------------*/
   async  function getUser(req, res, next){
       let user;
 try {
-     user = await User.findById(req.parms.id)
+     user = await User.findById(req.params.id)
     if(user == null){
         return res.status(404).json({message:"user was not found"})
     }
@@ -65,4 +65,6 @@ try {
 res.user = user;
 next();
     }
+/*----------------- end of moddleware get user by id ----------------*/
+
  module.exports = router;
