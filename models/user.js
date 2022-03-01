@@ -20,13 +20,20 @@ const userSchema = mongoose.Schema({
       },
       role: {
         type: String,
-        enum: ["authUser", "admin", "public"],
+        enum: ["authenticated", "admin", "public", "super admin"],
         required: [true, "Please specify user role"],
         default: "public"
       },
       password: {
         type: String,
         required: [true, 'smartAss we need a password to protect your data']
+      },
+      confirmationToken: {
+        type: String,
+        required: true, 
+      },
+      resetPasswordToken: {
+        type: String, 
       },
       createdAt: {
         type: Date,
