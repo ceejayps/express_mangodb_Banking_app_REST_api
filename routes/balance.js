@@ -2,13 +2,14 @@ if(process.env.NODE_ENV !=="production"){
     require('dotenv').config({ path: '.env' });
 }
 const express = require("express");
+const jwt = require("jsonwebtoken")
 const transaction = require("../models/transaction");
 const user = require("../models/user");
 const router = express.Router(); 
 
 
-router.post('/',async (req,res)=>{
-
+router.post('/',Autherize,async (req,res)=>{
+res.status(200).json({message:"uh reach ute"})
 })
 
 
