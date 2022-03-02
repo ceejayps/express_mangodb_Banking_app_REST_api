@@ -118,7 +118,6 @@ router.post('/register', async(req,res)=>{
             currentUser.role ='authenticated'
             currentUser.confirmationToken = 'nan'
 
-
             try {
                 const updatedUser = await currentUser.save()
                 return res.redirect('/success')
