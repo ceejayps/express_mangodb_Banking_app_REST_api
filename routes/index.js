@@ -122,11 +122,16 @@ router.post('/register', async(req,res)=>{
         if(currentUser == null){
             return res.sendStatus(404)
         }else{
-            //return res.json(currentUser)
+            
             currentUser.confirmed = true;
+            currentUser.role ='authenticated'
+            currentUser.confirmationToken = null
+
 
             try {
-                const updatedUser = currentUser.save()
+                const updatedUser = await currentUser.save()
+                return res.json(currentUser)
+
             } catch (error) {
                 return res.status(500).json({message:error})
             }
