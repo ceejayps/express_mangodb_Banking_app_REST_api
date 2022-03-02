@@ -82,7 +82,7 @@ router.post('/register', async(req,res)=>{
        const msg = {
          to: recipient, // Change to your recipient
          from: process.env.EMAIL, // Change to your verified sender
-         template_id: process.env.CONFIRM_ACCOUNT_TEMPLATE,
+         template_id: process.env.CONFIRM_ACCOUNT_TEMPLATE,//your trmplate id
        personalizations: [{
            to: { email: recipient },
            dynamic_template_data: {
