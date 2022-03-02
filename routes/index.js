@@ -60,7 +60,14 @@ router.post('/register', async(req,res)=>{
    let accountNumber = baseAccountNumber + add
    let confirmationToken =require('crypto').randomBytes(24).toString('hex')+accountNumber;
    const confirmationURL = baseURL+"?token="+confirmationToken
-
+console.log('********'+ accountNumber.toString().split(8)[1]);
+let accoutString = '********';
+let splitAccountNumber = accountNumber.toString().split('')
+for (let i = 8; i < splitAccountNumber.length; i++) {
+    accoutString += splitAccountNumber[i];
+    
+}
+console.log(accoutString)
    const newYouser =  await new User({
    fullname,
    email, //require('crypto').randomBytes(10).toString('hex')+"@mail.test",
@@ -88,7 +95,7 @@ router.post('/register', async(req,res)=>{
            dynamic_template_data: {
                confirmUrl: confirmUrl,
                username: (req.body.fullname).charAt(0).toUpperCase() +(req.body.fullname).slice(1),
-                accountNumber: accountNumber
+                accountNumber: '********'+ accountNumber.split(8)[1]
 
            },
        }],
