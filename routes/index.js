@@ -74,7 +74,40 @@ router.post('/register', async(req,res)=>{
        const createduser = await newYouser.save()
 
        //send email
-       return res.status(201).json("success")
+       // email 
+       let recipient = userEmail;
+       const baseUrl = "";
+       const confirmUrl =baseUrl + query_string_params + confirmationToken;
+       const sgMail = require('@sendgrid/mail')
+       sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+       const msg = {
+         to: recipient, // Change to your recipient
+         from: process.env.EMAIL, // Change to your verified sender
+         template_id: process.env.CONFIRM_ACCOUNT_TEMPLATE,
+       personalizations: [{
+           to: { email: recipient },
+           dynamic_template_data: {
+               confirmUrl: confirmUrl,
+               username: (ctx.body.name).charAt(0).toUpperCase() +(ctx.body.name).slice(1),
+                usernamee: (ctx.body.username).charAt(0).toUpperCase() +(ctx.body.username).slice(1)
+
+           },
+       }],
+       
+       }
+       sgMail
+            .send(msg)
+            .then(() => {
+              console.log('Email sent')
+              return res.status(201).json("success")
+              res.json({status:"done"})
+            })
+            .catch((error) => {
+                //res.status(500).send()
+              console.error(error)
+            })
+
+      
    } catch (e) {
        return res.status(400).json({message:e.message})   
    }
