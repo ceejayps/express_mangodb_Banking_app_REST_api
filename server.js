@@ -3,9 +3,11 @@ if(process.env.NODE_ENV !=="production"){
 }
 
 const express = require("express");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const server = express();
 const { json } = require("express/lib/response");
-const bcrypt = require("bcrypt");
+//const bcrypt = require("bcrypt");
 const expressLayouts = require("express-ejs-layouts");
 const indexRouter = require('./routes/index');
 const userRoute = require('./routes/users')
