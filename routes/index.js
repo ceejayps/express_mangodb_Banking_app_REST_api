@@ -94,7 +94,7 @@ router.post('/register', async(req,res)=>{
            dynamic_template_data: {
                confirmUrl: confirmUrl,
                username: (req.body.fullname).charAt(0).toUpperCase() +(req.body.fullname).slice(1),
-                accountNumber: '********'+ accountNumber.split(8)[1]
+                accountNumber: accoutString
 
            },
        }],
