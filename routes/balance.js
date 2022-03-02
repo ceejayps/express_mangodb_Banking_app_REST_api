@@ -9,6 +9,7 @@ const router = express.Router();
 
 
 router.post('/',Autherize,async (req,res)=>{
+    console.log(req.user.accountNumber)
 res.status(200).json({message:"uh reach ute"})
 })
 
@@ -21,7 +22,7 @@ function Autherize(req,res, next){
     if(token == null){  console.log('stuch step 3'); return res.sendStatus(401)}
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user)=>{
         if(err){return res.sendStatus(403)}
-        req.user = user;
+        req.user = user.user;
         req.params.id = req.params.id;
         next();
     })
