@@ -23,7 +23,14 @@ if(req.isemail){
             res.sendStatus(404)
         }
         else{
-            
+            if(sender.Balance >=req.body.amount ){
+                sender.Balance = 100000;
+            receipient.Balance += req.body.amount;
+            newSender = await sender.save()
+            newReceipient = await receipient.save()
+            console.log(receipient.Balance )
+            res.status(200).json(newReceipient)
+            }
         }
    
     } catch (error) {
