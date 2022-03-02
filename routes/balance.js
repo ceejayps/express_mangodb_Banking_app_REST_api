@@ -15,9 +15,27 @@ router.post('/',Autherize,async (req,res)=>{
         return res.status(400).json({message:"you can't be the receipient"})
     }else{
         try {
-if(isemail){}
+if(req.isemail){
+    try {
 
-            res.status(200).json({message:"uh reach ute"})
+        const receipient = await user.findOne({email:req.receipient})
+        if(receipient == null){
+            res.sendStatus(404)
+        }
+        else{
+            res.status(200).json(receipient)
+        }
+   
+    } catch (error) {
+        res.sendStatus(500)
+        
+    }
+    
+}else{
+
+}
+
+            
         } catch (error) {
             
         }
@@ -37,6 +55,7 @@ function Autherize(req,res, next){
         req.user = user.user;
         req.params.id = req.params.id;
         req.receipient = req.body.receipient
+        req.isemail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(req.body.receipient);
         next();
     })
 }
