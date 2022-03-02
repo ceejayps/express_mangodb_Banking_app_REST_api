@@ -9,8 +9,20 @@ const router = express.Router();
 
 
 router.post('/',Autherize,async (req,res)=>{
-    console.log(req.user.accountNumber)
-res.status(200).json({message:"uh reach ute"})
+    console.log(req.user._id, req.user.accountNumber, req.user.email ,{req:req.receipient})
+    const sender = await user.findById(req.user._id)
+    if( req.receipient === req.user.accountNumber||req.receipient === req.user.email){
+        return res.status(400).json({message:"you can't be the receipient"})
+    }else{
+        try {
+if(isemail){}
+
+            res.status(200).json({message:"uh reach ute"})
+        } catch (error) {
+            
+        }
+    }
+
 })
 
 
@@ -24,6 +36,7 @@ function Autherize(req,res, next){
         if(err){return res.sendStatus(403)}
         req.user = user.user;
         req.params.id = req.params.id;
+        req.receipient = req.body.receipient
         next();
     })
 }
