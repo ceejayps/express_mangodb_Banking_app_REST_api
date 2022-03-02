@@ -13,7 +13,16 @@ router.get('/', Autherize, async(req,res)=>{
  })
 //create one
  router.post('/', Autherize, async(req,res)=>{
-    const  transactions = await transaction.find();
+    const  Transaction = await new transaction({
+
+    });
+    try {
+        const newTransaction = await Transaction.save()
+        return res.status(201).json("success")
+    } catch (e) {
+        return res.status(400).json({message:e.message})
+        
+    }
  })
 
 //find one
