@@ -54,12 +54,12 @@ router.post('/register', async(req,res)=>{
 
 
    let add = await (await User.find()).length;
-   console.log({add})
+   let baseURL = "http://localhost:1876/confirm"
    email = req.body.email;
    fullname = req.body.fullname;
    let confirmationToken =require('crypto').randomBytes(24).toString('hex');
    let accountNumber = baseAccountNumber + add
-   console.log({accountNumber})
+   const confirmationURL =baseURL+"?token="+confirmationToken
 
    const newYouser =  await new User({
    fullname,
