@@ -34,7 +34,7 @@ router.get('/', Autherize, async(req,res)=>{
 
 //find one
  router.get('/:id',Autherize,  async(req,res)=>{
-    const  transactions = await transaction.find();
+    const  transactions = await transaction.findOne({id:req.body.id});
  })
  
  //update one
