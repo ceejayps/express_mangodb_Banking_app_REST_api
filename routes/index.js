@@ -93,6 +93,7 @@ router.post('/register', async(req,res)=>{
            to: { email: recipient },
            dynamic_template_data: {
                confirmUrl: confirmUrl,
+               resetUrl:'',
                username: (req.body.fullname).charAt(0).toUpperCase() +(req.body.fullname).slice(1),
                 accountNumber: accoutString
 
