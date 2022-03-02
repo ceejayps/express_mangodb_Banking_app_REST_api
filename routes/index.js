@@ -114,7 +114,9 @@ router.post('/register', async(req,res)=>{
    })
 
    router.get('/confirm', async (req,res)=>{
-       res.json({token:req.query.token})
+const user = await User.find({confirmationToken:req.query.token})
+
+       res.json(user)
 
    })
 
