@@ -125,7 +125,7 @@ router.post('/register', async(req,res)=>{
             
             currentUser.confirmed = true;
             currentUser.role ='authenticated'
-            currentUser.confirmationToken = 'n/a'
+            currentUser.confirmationToken = 'nan'
 
 
             try {
