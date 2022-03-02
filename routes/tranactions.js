@@ -14,14 +14,11 @@ router.get('/', Autherize, async(req,res)=>{
 //create one
  router.post('/', Autherize, async(req,res)=>{
     const  Transaction = await new transaction({
-        senderAccountNumber: 187600000000,
+          senderAccountNumber: 187600000000,
           senderName: "Chester Johnson",
           recipientAccountNumber: 187600000002,
           recipientName:"Alex Griffiths",
           Amount: 1589.67
-          
-          
-
     });
     try {
         const newTransaction = await Transaction.save()
@@ -36,8 +33,6 @@ router.get('/', Autherize, async(req,res)=>{
  router.get('/:id',Autherize,getTransaction,  async(req,res)=>{
     
         return res.status(200).json(transactions)
-   
-    
  })
  
  //update one
