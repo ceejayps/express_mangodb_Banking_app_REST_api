@@ -31,19 +31,19 @@ router.get('/',Autherize, async (req,res)=>{
 router.post('/login', async (req,res)=>{
     const isemail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(res.identifier);
 console.log( req.body.password)
-     //try {
-         // let users = await User.find({ accountNumber:18760000000})
-         // if(users == null){
-         //     users = await User.find({email:"ceejayps1308@gmail.com"})
-         //     return res.json(users);
-         // }
- 
         if(isemail){
-         const user = await User.find({email:"ceejayps1308@gmail.com"})
+         const user = await User.find({email:res.identifier})
          console.log( user.password)
          try {
             if(await bcrypt.compare(req.body.password, user[0].password)){
-                let JWT = jwt.sign({id:user[0]._id, email:user[0].email, accountNumber:user[0].accountNumber, role:user[0].role, fullname:user[0].fullname}, process.env.ACCESS_TOKEN_SECRET);
+                let JWT = jwt.sign(
+                    {id:user[0]._id,
+                    email:user[0].email,
+                    accountNumber:user[0].accountNumber, 
+                    role:user[0].role, 
+                    fullname:user[0].fullname
+                },
+                process.env.ACCESS_TOKEN_SECRET);
                  
                 return  res.status(200).json([JWT, user[0]])
             }
@@ -54,7 +54,7 @@ console.log( req.body.password)
                return res.status(500).send({message:""})
            }
         } else{
-         const user = await User.find({ accountNumber:187600000000})
+         const user = await User.find({ accountNumber:res.identifier})
          console.log( user[0].password)
          try  {
             if(await bcrypt.compare(req.body.password, user[0].password)){
@@ -69,16 +69,7 @@ console.log( req.body.password)
            } catch (e) {
                return res.status(501).send({message:e})
            }
- 
-        }
-            
-        
-         
-        //  return res.json(user);
-    //  } catch (e) {
-    //      return res.status(500).json({message:e})
-    //  }
- 
+        }        
  })
 
 //get one users
