@@ -2,6 +2,7 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const User = require("../models/user");
 const jwt= require("jsonwebtoken");
+const baseAccountNumber = 187600000000;
 const router = express.Router(); 
 router.get('/', (req,res)=>{
     res.render("index")
@@ -46,6 +47,39 @@ router.post('/login', async (req,res)=>{
            }
         }        
  })
+
+
+ //regester
+router.post('/register', async(req,res)=>{
+    // const deleteAll = await user.deleteMany()
+  //return res.send("deleted")
+
+   let add = await (await User.find()).length;
+   console.log({add})
+   email = req.body.email;
+   fullname = req.body.fullname;
+   let confirmationToken =require('crypto').randomBytes(24).toString('hex');
+   let accountNumber = baseAccountNumber + add
+   console.log({accountNumber})
+
+   const newYouser =  await new User({
+   fullname,
+   email, //require('crypto').randomBytes(10).toString('hex')+"@mail.test",
+   password: await bcrypt.hash(req.body.password,11),
+   Balance:1.5,
+   confirmationToken,
+   accountNumber,
+
+   })
+   try {
+       const createduser = await newYouser.save()
+       return res.status(201).json("success")
+   } catch (e) {
+       return res.status(400).json({message:e.message})   
+   }
+
+   })
+
 
 
 
