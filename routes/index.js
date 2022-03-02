@@ -14,6 +14,12 @@ router.post('/login', async (req,res)=>{
     const isemail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(req.body.identifier);
         if(isemail){
          const user = await User.find({email:req.body.identifier})
+         if(user[0].confirmed == false ){
+            return res.sendStatus(401)}
+        else{
+            if(user[0].blocked == true){
+                return res.sendStatus(401)
+            }else{
          try {
             if(await bcrypt.compare(req.body.password, user[0].password)){
                 let JWT = jwt.sign(
@@ -26,9 +32,17 @@ router.post('/login', async (req,res)=>{
             }
            } catch (e) {
                return res.status(500).send({message:""})
-           }
+           }}}
         } else{
          const user = await User.find({ accountNumber:req.body.identifier})
+
+if(user[0].confirmed == false ){
+    return res.sendStatus(401)}
+else{
+    if(user[0].blocked == true){
+        return res.sendStatus(401)
+    }else{
+
          try  {
             if(await bcrypt.compare(req.body.password, user[0].password)){
                  let JWT = jwt.sign({user:user[0]}, process.env.ACCESS_TOKEN_SECRET);
@@ -39,7 +53,8 @@ router.post('/login', async (req,res)=>{
             }
            } catch (e) {
                return res.status(501).send({message:e})
-           }
+    }}
+        }
         }        
  })
 
