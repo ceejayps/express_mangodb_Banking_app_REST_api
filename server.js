@@ -11,6 +11,7 @@ const { json } = require("express/lib/response");
 const expressLayouts = require("express-ejs-layouts");
 const indexRouter = require('./routes/index');
 const userRoute = require('./routes/users')
+const transactionRoute = require('./routes/tranactions')
 const mongoose  = require("mongoose");
 mongoose.connect(process.env.DATABASE_URL,{useNewUrlParser:true})
 const db = mongoose.connection;
@@ -27,6 +28,7 @@ server.use(express.json());
 server.use(express.urlencoded({extended: true}))
 server.use('/',indexRouter)
 server.use('/users',userRoute)
+server.use('/transactions',transactionRoute)
 
 
 
