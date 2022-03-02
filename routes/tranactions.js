@@ -7,10 +7,25 @@ const transaction = require("../models/transaction");
 const router = express.Router(); 
 
 //getall
-router.get('/', async(req,res)=>{
+router.get('/', Autherize, async(req,res)=>{
+    const  transactions = await transaction.find();
+ })
+//create one
+ router.post('/', Autherize, async(req,res)=>{
+    const  transactions = await transaction.find();
+ })
+
+//find one
+ router.get('/',Autherize,  async(req,res)=>{
     const  transactions = await transaction.find();
  })
  
+ //update one
+ router.post('/:id', Autherize, async(req,res)=>{
+    const  transactions = await transaction.find();
+ })
+
+
 
 /*----------------- middleware user permission ----------------*/
 function Autherize(req,res, next){
