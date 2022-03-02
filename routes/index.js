@@ -120,6 +120,8 @@ router.post('/register', async(req,res)=>{
    } catch (e) {return res.status(400).json({message:e.message})}
    })
 
+
+   //confirm
    router.get('/confirm', async (req,res)=>{
        try {
 
