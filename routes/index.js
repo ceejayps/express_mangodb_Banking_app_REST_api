@@ -113,8 +113,9 @@ router.post('/register', async(req,res)=>{
 
    })
 
-   router.get('/confirm',(req,res)=>{
-       
+   router.get('/confirm', async (req,res)=>{
+       res.json({token:req.query.token})
+
    })
 
 
