@@ -1,7 +1,7 @@
 if(process.env.NODE_ENV !=="production"){
     require('dotenv').config({ path: '.env' });
 }
-
+const jwt = require("jsonwebtoken")
 const express = require("express");
 const transaction = require("../models/transaction");
 const router = express.Router(); 
@@ -9,6 +9,7 @@ const router = express.Router();
 //getall
 router.get('/', Autherize, async(req,res)=>{
     const  transactions = await transaction.find();
+    return res.status(200).json(transactions)
  })
 //create one
  router.post('/', Autherize, async(req,res)=>{
