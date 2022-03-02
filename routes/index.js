@@ -75,9 +75,8 @@ router.post('/register', async(req,res)=>{
 
        //send email
        // email 
-       let recipient = userEmail;
-       const baseUrl = "";
-       const confirmUrl =baseUrl + query_string_params + confirmationToken;
+       let recipient = email;
+       const confirmUrl =confirmationURL
        const sgMail = require('@sendgrid/mail')
        sgMail.setApiKey(process.env.SENDGRID_API_KEY)
        const msg = {
@@ -88,7 +87,7 @@ router.post('/register', async(req,res)=>{
            to: { email: recipient },
            dynamic_template_data: {
                confirmUrl: confirmUrl,
-               username: (ctx.body.name).charAt(0).toUpperCase() +(ctx.body.name).slice(1),
+               username: (req.body.fullname).charAt(0).toUpperCase() +(req.body.fullname).slice(1),
                 usernamee: (ctx.body.username).charAt(0).toUpperCase() +(ctx.body.username).slice(1)
 
            },
