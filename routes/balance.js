@@ -31,23 +31,22 @@ if(req.isemail){
 
          const NewTransac =await new transaction({
             senderAccountNumber: sender.accountNumber,
-              senderName: sender.fullName,
+              senderName: sender.fullname,
               recipientAccountNumber: receipient.accountNumber,
-              recipientName: receipient.fullName,
+              recipientName: receipient.fullname,
               Amount: req.body.amount,
              
               
         })
 
-        console.log(NewTransac)
+     
 
 try {
     
         
           await  NewTransac.save()
 
-            console.log(receipient.Balance )
-            res.status(200).json(newReceipient)
+            res.status(200).json(NewTransac)
         } catch (error) {
             res.status(500).json(error)
         }
