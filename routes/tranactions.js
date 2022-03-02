@@ -41,8 +41,12 @@ router.get('/', Autherize, async(req,res)=>{
     const  transactions = await transaction.find();
  })
 
+ router.delete('/:id',Autherize,getTransaction, (req,res)=>{
 
- /*----------------- middleware get user by id ----------------*/
+ })
+
+
+ /*-----------------middleware get user by id-------------------*/
  async  function getTransaction(req, res, next){
     let Transaction;
 try {
