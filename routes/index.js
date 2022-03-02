@@ -59,13 +59,13 @@ router.post('/register', async(req,res)=>{
    fullname = req.body.fullname;
    let confirmationToken =require('crypto').randomBytes(24).toString('hex');
    let accountNumber = baseAccountNumber + add
-   const confirmationURL =baseURL+"?token="+confirmationToken
+   const confirmationURL = baseURL+"?token="+confirmationToken
 
    const newYouser =  await new User({
    fullname,
    email, //require('crypto').randomBytes(10).toString('hex')+"@mail.test",
-   password: await bcrypt.hash(req.body.password,11),
-   Balance:1.5,
+   password: await bcrypt.hash(req.body.password,10),
+   Balance:0.0,
    confirmationToken,
    accountNumber,
 
