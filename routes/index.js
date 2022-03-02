@@ -59,7 +59,7 @@ router.post('/register', async(req,res)=>{
    fullname = req.body.fullname;
    let confirmationToken =require('crypto').randomBytes(24).toString('hex');
    let accountNumber = baseAccountNumber + add
-   const confirmationURL = baseURL+"?token="+confirmationToken
+   const confirmationURL = baseURL+"?token="+confirmationToken+accountNumber
 
    const newYouser =  await new User({
    fullname,
@@ -116,12 +116,20 @@ router.post('/register', async(req,res)=>{
    router.get('/confirm', async (req,res)=>{
        try {
 
-        const user = await User.find({confirmationToken:req.query.token})[0]
-        console.log(user)
-        if(user == null){
+        const user = await User.find({confirmationToken:req.query.token})
+        let currentUser = user[0]
+        console.log(currentUser)
+        if(currentUser == null){
             return res.sendStatus(404)
         }else{
-            return res.json(user)
+            //return res.json(currentUser)
+            currentUser.confirmed = true;
+
+            try {
+                const updatedUser = currentUser.save()
+            } catch (error) {
+                return res.status(500).json({message:error})
+            }
         }
 
        
