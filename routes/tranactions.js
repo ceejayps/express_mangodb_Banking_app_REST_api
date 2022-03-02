@@ -44,7 +44,7 @@ router.get('/', Autherize, async(req,res)=>{
  })
  
  //update one
- router.post('/:id', Autherize, async(req,res)=>{
+ router.post('/:id', Autherize, getTransaction,async(req,res)=>{
     const  transactions = await transaction.find();
  })
 
