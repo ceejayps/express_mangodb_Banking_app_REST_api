@@ -9,7 +9,7 @@ const router = express.Router();
 
 
 router.post('/',Autherize,async (req,res)=>{
-    console.log(req.user._id, req.user.accountNumber, req.user.email ,{req:req.receipient})
+   // console.log(req.user._id, req.user.accountNumber, req.user.email ,{req:req.receipient})
     const sender = await user.findById(req.user._id)
     if( req.receipient === req.user.accountNumber||req.receipient === req.user.email){
         return res.status(400).json({message:"you can't be the receipient"})
@@ -24,30 +24,41 @@ if(req.isemail){
         }
         else{
             if(sender.Balance >=req.body.amount ){
-                sender.Balance -= 100000;
+                sender.Balance = 100000;
             receipient.Balance += req.body.amount;
           const  newSender = await sender.save()
          const   newReceipient = await receipient.save()
 
+         const NewTransac =await new transaction({
+            senderAccountNumber: sender.accountNumber,
+              senderName: sender.fullName,
+              recipientAccountNumber: receipient.accountNumber,
+              recipientName: receipient.fullName,
+              Amount: req.body.amount,
+             
+              
+        })
 
-            const NewTransac =await new transaction({
-                senderAccountNumber: sender.accountNumber,
-                  senderName: sender.fullName,
-                  recipientAccountNumber: receipient.accountNumber,
-                  recipientName: receipient.fullName,
-                  Amount: req.body.amount,
-                 
-                  
-            })
+        console.log(NewTransac)
 
-     const  savedTransac =    await NewTransac.save()
-
-
-
-
+try {
+    
+        
+          await  NewTransac.save()
 
             console.log(receipient.Balance )
             res.status(200).json(newReceipient)
+        } catch (error) {
+            res.status(500).json(error)
+        }
+          
+         
+
+
+
+
+
+           
             }
         }
    
