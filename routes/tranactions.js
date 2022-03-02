@@ -41,6 +41,18 @@ router.get('/', Autherize, async(req,res)=>{
     const  transactions = await transaction.find();
  })
 
+ router.delete('/',async (req,res)=>{
+    try {
+        // await res.user.remove();
+            await transaction.deleteMany()
+    //return res.send("deleted")
+        return res.status(204).json("user deleted")
+    } catch (error) {
+        return res.status(500).json({message:e.message})
+    }
+    
+ })
+
  router.delete('/:id',Autherize,getTransaction, (req,res)=>{
 
  })
