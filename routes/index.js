@@ -79,7 +79,6 @@ router.post('/register', async(req,res)=>{
    try {
        const createduser = await newYouser.save()
 
-       //send email
        // email 
        let recipient = email;
        const confirmUrl =confirmationURL
@@ -108,16 +107,8 @@ router.post('/register', async(req,res)=>{
               return res.status(201).json("success")
               res.json({status:"done"})
             })
-            .catch((error) => {
-                //res.status(500).send()
-              console.error(error)
-            })
-
-      
-   } catch (e) {
-       return res.status(400).json({message:e.message})   
-   }
-
+            .catch((error) => { return res.sendStatus(500)})
+   } catch (e) {return res.status(400).json({message:e.message})}
    })
 
    router.get('/confirm', async (req,res)=>{
@@ -125,7 +116,6 @@ router.post('/register', async(req,res)=>{
 
         const user = await User.find({confirmationToken:req.query.token})
         let currentUser = user[0]
-        console.log(currentUser)
         if(currentUser == null){
             return res.sendStatus(404)
         }else{
@@ -142,11 +132,7 @@ router.post('/register', async(req,res)=>{
                 return res.status(500).json({message:error})
             }
         }
-
-       
-       } catch (error) {
-           return res.sendStatus(500)
-       }
+       } catch (error) { return res.sendStatus(500)}
 
 
    })
