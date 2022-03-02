@@ -107,7 +107,7 @@ router.post('/', async(req,res)=>{
 
 //update one users
 router.post('/:id',getUser,async (req,res)=>{
-    res.send(res.user.name)
+    res.send(req.user.name)
     })
 
 
@@ -126,7 +126,7 @@ router.delete('/', async (req,res)=>{
 //delete one users
 router.delete('/:id',getUser, async (req,res)=>{
     try {
-        await res.user.remove();
+        await req.user.remove();
         return res.status(204).json("user deleted")
     } catch (error) {
         return res.status(500).json({message:e.message})
@@ -144,7 +144,7 @@ try {
 } catch (e) {
     return res.status(500).json({message:e.message})
 }
-res.user = user;
+req.user = user;
 next();
     }
 /*----------------- end of middleware get user by id ----------------*/
