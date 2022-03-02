@@ -33,7 +33,7 @@ router.get('/', Autherize, async(req,res)=>{
  })
 
 //find one
- router.get('/:id',Autherize,  async(req,res)=>{
+ router.get('/:id',Autherize,getTransaction,  async(req,res)=>{
      try {
         const  transactions = await transaction.findById({id:req.body.id});
         return res.status(200).json(transactions)
