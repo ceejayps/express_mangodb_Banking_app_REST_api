@@ -117,6 +117,7 @@ router.post('/register', async(req,res)=>{
        try {
 
         const user = await User.find({confirmationToken:req.query.token})[0]
+        console.log(user)
         if(user == null){
             return res.sendStatus(404)
         }else{
