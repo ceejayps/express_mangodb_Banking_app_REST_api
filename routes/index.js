@@ -130,8 +130,7 @@ router.post('/register', async(req,res)=>{
 
             try {
                 const updatedUser = await currentUser.save()
-                return res.json(currentUser)
-
+                return res.redirect('/success')
             } catch (error) {
                 return res.status(500).json({message:error})
             }
