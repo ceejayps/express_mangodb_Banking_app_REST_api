@@ -26,9 +26,26 @@ if(req.isemail){
             if(sender.Balance >=req.body.amount ){
                 sender.Balance -= 100000;
             receipient.Balance += req.body.amount;
-            newSender = await sender.save()
-            newReceipient = await receipient.save()
-            
+          const  newSender = await sender.save()
+         const   newReceipient = await receipient.save()
+
+
+            const NewTransac =await new transaction({
+                senderAccountNumber: sender.accountNumber,
+                  senderName: sender.fullName,
+                  recipientAccountNumber: receipient.accountNumber,
+                  recipientName: receipient.fullName,
+                  Amount: req.body.amount,
+                 
+                  
+            })
+
+     const  savedTransac =    await NewTransac.save()
+
+
+
+
+
             console.log(receipient.Balance )
             res.status(200).json(newReceipient)
             }
