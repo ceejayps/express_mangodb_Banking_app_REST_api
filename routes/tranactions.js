@@ -49,6 +49,23 @@ router.get('/', Autherize, async(req,res)=>{
  })
 
 
+ /*----------------- middleware get user by id ----------------*/
+ async  function getTransaction(req, res, next){
+    let Transaction;
+try {
+   Transaction = await transaction.findById(req.params.id)
+  if(user == null){
+      return res.status(404).json({message:"Transaction was not found"})
+  }
+} catch (e) {
+  return res.status(500).json({message:e.message})
+}
+res.transaction = Transaction;
+next();
+  }
+/*----------------- end of middleware get user by id ----------------*/
+
+
 
 /*----------------- middleware user permission ----------------*/
 function Autherize(req,res, next){
