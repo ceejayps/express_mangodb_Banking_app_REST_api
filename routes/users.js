@@ -72,7 +72,7 @@ router.post('/:id',getUser,async (req,res)=>{
 
 
 //delete all
-router.delete('/', async (req,res)=>{
+router.delete('/',Autherize, async (req,res)=>{
     try {
         // await res.user.remove();
             await User.deleteMany()
