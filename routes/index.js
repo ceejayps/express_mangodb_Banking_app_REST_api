@@ -51,8 +51,7 @@ router.post('/login', async (req,res)=>{
 
  //regester
 router.post('/register', async(req,res)=>{
-    // const deleteAll = await user.deleteMany()
-  //return res.send("deleted")
+
 
    let add = await (await User.find()).length;
    console.log({add})
@@ -73,6 +72,8 @@ router.post('/register', async(req,res)=>{
    })
    try {
        const createduser = await newYouser.save()
+
+       //send email
        return res.status(201).json("success")
    } catch (e) {
        return res.status(400).json({message:e.message})   
