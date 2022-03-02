@@ -6,7 +6,6 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const User = require("../models/user");
 const jwt= require("jsonwebtoken");
-const user = require("../models/user");
 const router = express.Router(); 
 const baseAccountNumber = 187600000000;
 ///require("dotenv").config();
@@ -76,7 +75,7 @@ router.post('/:id',getUser,async (req,res)=>{
 router.delete('/', async (req,res)=>{
     try {
         // await res.user.remove();
-            await user.deleteMany()
+            await User.deleteMany()
     //return res.send("deleted")
         return res.status(204).json("user deleted")
     } catch (error) {
@@ -87,7 +86,7 @@ router.delete('/', async (req,res)=>{
 //delete one users
 router.delete('/:id',getUser, async (req,res)=>{
     try {
-        await req.user.remove();
+        await req.User.remove();
         return res.status(204).json("user deleted")
     } catch (error) {
         return res.status(500).json({message:e.message})
