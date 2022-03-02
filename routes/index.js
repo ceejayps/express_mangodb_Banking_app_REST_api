@@ -115,7 +115,11 @@ router.post('/register', async(req,res)=>{
 
    router.get('/confirm', async (req,res)=>{
        try {
+
         const user = await User.find({confirmationToken:req.query.token})
+        if(user == null){
+            return res.sendStatus(404)
+        }
 
        return res.json(user)
        } catch (error) {
