@@ -23,7 +23,7 @@ if(req.isemail){
             res.sendStatus(404)
         }
         else{
-            res.status(200).json(receipient)
+            
         }
    
     } catch (error) {
