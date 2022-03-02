@@ -4,6 +4,7 @@ if(process.env.NODE_ENV !=="production"){
 const jwt = require("jsonwebtoken")
 const express = require("express");
 const transaction = require("../models/transaction");
+const user = require("../models/user");
 const router = express.Router(); 
 
 //getall
@@ -32,7 +33,7 @@ router.get('/', Autherize, async(req,res)=>{
 //find one
  router.get('/:id',Autherize,getTransaction,  async(req,res)=>{
     
-        return res.status(200).json(transactions)
+        return res.status(200).json(req.transaction)
  })
  
  //update one
