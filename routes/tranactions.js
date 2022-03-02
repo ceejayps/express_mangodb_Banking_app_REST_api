@@ -34,12 +34,9 @@ router.get('/', Autherize, async(req,res)=>{
 
 //find one
  router.get('/:id',Autherize,getTransaction,  async(req,res)=>{
-     try {
-        const  transactions = await transaction.findById({id:req.body.id});
+    
         return res.status(200).json(transactions)
-     } catch (error) {
-        return res.sendStatus(404)
-     }
+   
     
  })
  
@@ -60,7 +57,7 @@ try {
 } catch (e) {
   return res.status(500).json({message:e.message})
 }
-res.transaction = Transaction;
+req.transaction = Transaction;
 next();
   }
 /*----------------- end of middleware get user by id ----------------*/
