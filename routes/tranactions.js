@@ -11,7 +11,7 @@ router.get('/', Autherize, async(req,res)=>{
     const  transactions = await transaction.find();
  })
 //create one
- router.post('/;id', Autherize, async(req,res)=>{
+ router.post('/', Autherize, async(req,res)=>{
     const  transactions = await transaction.find();
  })
 
