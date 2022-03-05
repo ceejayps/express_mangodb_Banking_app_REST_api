@@ -11,51 +11,30 @@ router.get('/', (req,res)=>{
 
 //post login 1 big headed user
 router.post('/login', async (req,res)=>{
-    const isemail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(req.body.identifier);
-        if(isemail){
+    if(req.body.identifier == (null || undefined) || req.body.password == (null || undefined)) return res.status(400)
+        if(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(req.body.identifier)){
          const user = await User.find({email:req.body.identifier})
-         if(user[0].confirmed == false ){
-            return res.sendStatus(401)}
-        else{
-            if(user[0].blocked == true){
-                return res.sendStatus(401)
-            }else{
+         console.log(user[0])
+         if(user[0] == (null || undefined))return res.sendStatus(404)
+         if(!user[0].confirmed ||user[0].blocked )return res.sendStatus(401)
          try {
-            if(await bcrypt.compare(req.body.password, user[0].password)){
-                let JWT = jwt.sign(
-                    {user:user[0]},
-                process.env.ACCESS_TOKEN_SECRET);
+            if(await bcrypt.compare(req.body.password, user[0].password) == false)return res.status(400).json("incorrect password")
+                let JWT = await jwt.sign({user:user[0]},process.env.ACCESS_TOKEN_SECRET); console.log(`${user[0].fullname} successfully login`)
                 return  res.status(200).json([JWT, user[0]])
-            }
-            else{
-                return res.status(400).send({message:"incorrect password"})
-            }
-           } catch (e) {
-               return res.status(500).send({message:""})
-           }}}
+           
+           } catch (e) {return res.status(500).send({message:""})}
         } else{
-         const user = await User.find({ accountNumber:req.body.identifier})
+    const user = await User.find({ accountNumber:req.body.identifier})
 
-if(user[0].confirmed == false ){
-    return res.sendStatus(401)}
-else{
-    if(user[0].blocked == true){
-        return res.sendStatus(401)
-    }else{
-
-         try  {
-            if(await bcrypt.compare(req.body.password, user[0].password)){
-                 let JWT = jwt.sign({user:user[0]}, process.env.ACCESS_TOKEN_SECRET);
-              return  res.status(200).json([JWT, user[0]])
-            }
-            else{
-                return res.status(400).send({message:"incorrect password"})
-            }
-           } catch (e) {
-               return res.status(501).send({message:e})
-    }}
+         if(user[0] == (null || undefined))return res.sendStatus(404)
+         if(!user[0].confirmed||user[0].blocked)return res.sendStatus(401)
+         try {
+            if(await bcrypt.compare(req.body.password, user[0].password) == false)return res.status(400).json("incorrect password")
+                let JWT = await jwt.sign({user:user[0]},process.env.ACCESS_TOKEN_SECRET);console.log(`${user[0].fullname} successfully login`)
+                return res.status(200).json([JWT, user[0]])
+           
+           } catch (e) {return res.status(500).send({message:""})}
         }
-        }        
  })
 
 
