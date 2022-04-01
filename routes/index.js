@@ -36,7 +36,6 @@ router.post('/login', async (req,res)=>{
             if(await bcrypt.compare(req.body.password, user[0].password) == false)return res.status(400).json("incorrect password")
                 let JWT = await jwt.sign({user:user[0]},process.env.ACCESS_TOKEN_SECRET);console.log(`${user[0].fullname} successfully login`)
                 return res.status(200).json([JWT, user[0]])
-           
            } catch (e) {return res.status(500).send({message:""})}
         }
  })
@@ -44,8 +43,6 @@ router.post('/login', async (req,res)=>{
 
  //regester
 router.post('/register', async(req,res)=>{
-
-
    let add = await (await User.find()).length;
    let baseURL = "http://localhost:1876/confirm"
    email = req.body.email;
@@ -59,7 +56,6 @@ router.post('/register', async(req,res)=>{
    for (let i = 8; i < splitAccountNumber.length; i++) {
        accoutString += splitAccountNumber[i];
         }
- 
    const newYouser =  await new User({
    fullname,
    email, //require('crypto').randomBytes(10).toString('hex')+"@mail.test",
@@ -116,8 +112,5 @@ router.post('/register', async(req,res)=>{
 
 
    })
-
-
-
 
  module.exports = router;
