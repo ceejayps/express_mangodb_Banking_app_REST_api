@@ -67,7 +67,6 @@ router.post('/register', async(req,res)=>{
    })
    try {
        const createduser = await newYouser.save()
-
        // email 
        let recipient = email;
        const confirmUrl =confirmationURL
@@ -84,11 +83,7 @@ router.post('/register', async(req,res)=>{
                resetUrl:'',
                username: (req.body.fullname).charAt(0).toUpperCase() +(req.body.fullname).slice(1),
                 accountNumber: accoutString
-
-           },
-       }],
-       
-       }
+            }}]}
        sgMail
             .send(msg)
             .then(() => {
@@ -99,28 +94,20 @@ router.post('/register', async(req,res)=>{
    } catch (e) {return res.status(400).json({message:e.message})}
    })
 
-
    //confirm
    router.get('/confirm', async (req,res)=>{
        try {
 
         const user = await User.find({confirmationToken:req.query.token})
         let currentUser = user[0]
-        if(currentUser == null){
-            return res.sendStatus(404)
-        }else{
-            
+        if(currentUser == null) return res.sendStatus(404)
             currentUser.confirmed = true;
             currentUser.role ='authenticated'
             currentUser.confirmationToken = 'nan'
-
             try {
                 const updatedUser = await currentUser.save()
                 return res.redirect('/success')
-            } catch (error) {
-                return res.status(500).json({message:error})
-            }
-        }
+                } catch (error) {return res.status(500).json({message:error})}
        } catch (error) { return res.sendStatus(500)}
 
 
