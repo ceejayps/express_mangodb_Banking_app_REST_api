@@ -11,8 +11,6 @@ console.log(url);
     res.render("index")
 })
 
-
-
 //post login 1 big headed user
 router.post('/login', async (req,res)=>{
     if(req.body.identifier == (null || undefined) || req.body.password == (null || undefined)) return res.status(400)
