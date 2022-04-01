@@ -9,8 +9,7 @@ const router = express.Router();
 
 //getall
 router.get('/',  async(req,res)=>{
-    const url = await page.url();
-console.log(url);
+   
     const  transactions = await transaction.find();
     return res.status(200).json(transactions)
  })
