@@ -15,7 +15,6 @@ router.post('/',Autherize,async (req,res)=>{
         try {
 if(req.isemail){
     try {
-
         const receipient = await user.findOne({email:req.receipient})
         if(receipient == null)res.sendStatus(404)
             if(sender.Balance < req.body.amount) return res.status(400).json({message:"invalid amount"})
@@ -35,7 +34,6 @@ if(req.isemail){
         } catch (error) {
             res.status(500).json(error)
         }
-   
     } catch (error) {res.sendStatus(500)}
 } 
 } catch (error) {}
