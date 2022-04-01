@@ -12,7 +12,6 @@ router.post('/',Autherize,async (req,res)=>{
    // console.log(req.user._id, req.user.accountNumber, req.user.email ,{req:req.receipient})
     const sender = await user.findById(req.user._id)
     if( req.receipient === req.user.accountNumber||req.receipient === req.user.email)return res.status(400).json({message:"you can't be the receipient"})
-    
         try {
 if(req.isemail){
     try {
@@ -24,7 +23,6 @@ if(req.isemail){
             receipient.Balance += req.body.amount;
           const  newSender = await sender.save()
          const   newReceipient = await receipient.save()
-
          const NewTransac =await new transaction({
             senderAccountNumber: sender.accountNumber,
               senderName: sender.fullname,
