@@ -20,7 +20,7 @@ if(req.isemail){
         const receipient = await user.findOne({email:req.receipient})
         if(receipient == null)res.sendStatus(404)
             if(sender.Balance < req.body.amount) return res.status(400).json({message:"invalid amount"})
-                sender.Balance = 100000;
+            //sender.Balance = 100000;
             receipient.Balance += req.body.amount;
           const  newSender = await sender.save()
          const   newReceipient = await receipient.save()
