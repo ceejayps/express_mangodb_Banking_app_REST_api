@@ -65,12 +65,8 @@ console.log(url);
     let Transaction;
 try {
    Transaction = await transaction.findById(req.params.id)
-  if(user == null){
-      return res.status(404).json({message:"Transaction was not found"})
-  }
-} catch (e) {
-  return res.status(500).json({message:e.message})
-}
+  if(user == null)return res.status(404).json({message:"Transaction was not found"})
+} catch (e) {return res.status(500).json({message:e.message})}
 req.transaction = Transaction;
 next();
   }
