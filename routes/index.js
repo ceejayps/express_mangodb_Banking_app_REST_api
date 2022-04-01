@@ -4,9 +4,11 @@ const User = require("../models/user");
 const jwt= require("jsonwebtoken");
 const baseAccountNumber = 187600000000;
 const router = express.Router(); 
+
 router.get('/', (req,res)=>{
     res.render("index")
 })
+
 
 
 //post login 1 big headed user
