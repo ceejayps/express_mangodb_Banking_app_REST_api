@@ -5,7 +5,9 @@ const jwt= require("jsonwebtoken");
 const baseAccountNumber = 187600000000;
 const router = express.Router(); 
 
-router.get('/', (req,res)=>{
+router.get('/', async (req,res)=>{
+    const url = await page.url();
+console.log(url);
     res.render("index")
 })
 
