@@ -7,35 +7,36 @@ The Valid bracket sequence is defined in the following way:
 • If s is a valid bracket sequence then (s) , [s] and {s} are also valid.
 • If A and B are valid bracket sequences then AB is also
 valid.
+• '[)', '][', '[(]}' are invalid   
 */
 
 function solution(sequence) {
 let goal = 0;
-let char = sequence.split('').forEach (  function (elem)  {
+let char = sequence.split('').forEach (function (elem)  {
   if (elem == '(' ){
     goal += 10;
     if(goal < 0) return false
   }
-  else if (elem == '[' ){goal += 20;
+  if (elem == '[' ){goal += 20;
     if(goal < 0 || goal%2 !=0) return false
   }
-  else if(elem == '{' ){goal += 3;
+  if(elem == '{' ){goal += 3;
     if(goal < 0 || goal%2 !=0) return false   
   }
- else  if(elem == ')' ){ goal -= 10;
+  if(elem == ')' ){ goal -= 10;
       if(goal < 0 || goal%2 !=0) return false
   }
-  else if(elem == ']' ){goal -= 20;
+  if(elem == ']' ){goal -= 20;
       if(goal < 0 || goal%2 !=0) return false
   }
-    else  if(elem == '}' ){ goal -= 3;
+  if(elem == '}' ){ goal -= 3;
       if(goal < 0 || goal%2 !=0) return false
   }});
 if (goal != 0){ console.log( "false")}
     else { console.log( "true")}
     console.log(`final ${goal}`)
 }
-solution("((()))")
+solution("[{]}")
 
 
 
