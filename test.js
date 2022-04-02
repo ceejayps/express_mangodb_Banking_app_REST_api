@@ -4,7 +4,7 @@ Given a string 'sequence' consisting of the characters
 whether or not the sequence is a valid bracket sequence.
 The Valid bracket sequence is defined in the following way:
 • An empty bracket sequence is a valid bracket sequence.
-• If s is a valid bracket sequence then (s) , [s] and Is} are also valid.
+• If s is a valid bracket sequence then (s) , [s] and {s} are also valid.
 • If A and B are valid bracket sequences then AB is also
 valid.
 */
