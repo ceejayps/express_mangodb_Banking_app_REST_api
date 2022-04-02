@@ -36,7 +36,7 @@ if (goal != 0){ console.log( "false")}
     else { console.log( "true")}
     console.log(`final ${goal}`)
 }
-solution("[{]}")
+solution("[{}]")
 
 
 
